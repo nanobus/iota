@@ -1,4 +1,4 @@
-name: Build
+name: Build codegen
 
 on:
   push:
@@ -21,10 +21,6 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-      - run: npm install
-      - run: npm run test
-      #- run: npm run lint
-      - run: npm run build
 
       - uses: actions/setup-go@v3
         with:
@@ -33,9 +29,23 @@ jobs:
       - name: Install Apex CLI
         run: wget -q https://apexlang.io/install.sh -O - | /bin/bash
 
+      - run: npm install
+        working-directory: ./codegen
+
+      - run: npm run test
+        working-directory: ./codegen
+
+      #- run: npm run lint
+      - run: npm run build
+        working-directory: ./codegen
+
+      - name: Install codegen module
+        run: apex install file:.
+        working-directory: ./codegen
+
       - name: Generator diff test
         run: ./diffcheck.sh
-        working-directory: ./testdata
+        working-directory: ./codegen/testdata
 
       - name: Is Release?
         if: startswith(github.ref, 'refs/tags/v')
@@ -44,5 +54,6 @@ jobs:
       - name: Publish to npm
         if: env.DEPLOY_PACKAGE == 'true'
         run: npm pack && npm publish --access public
+        working-directory: ./codegen
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
