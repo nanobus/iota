@@ -35,7 +35,7 @@
     "test": "echo todo",
     "style": "npm run format -- --list-different && npm run lint",
     "style:fix": "npm run format:fix && npm run lint:fix",
-    "format": "prettier --config ../config/.prettierrc \"src/**/*.{ts,tsx,js,jsx,css,scss,sass,less,md}\"",
+    "format": "prettier --config ../../config/.prettierrc \"src/**/*.{ts,tsx,js,jsx,css,scss,sass,less,md}\"",
     "format:fix": "npm run format -- --write",
     "lint": "eslint -c ../config/.eslintrc.json src --ext .ts",
     "lint:fix": "npm run lint -- --fix",

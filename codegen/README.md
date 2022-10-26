@@ -17,7 +17,7 @@ just build
 ### Run all tests
 
 ```
-jest test
+just test
 ```
 
 ### Remove all node_modules

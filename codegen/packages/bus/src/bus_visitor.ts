@@ -14,25 +14,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { Context, BaseVisitor } from "@apexlang/core/model";
+import { Context, BaseVisitor } from '@apexlang/core/model';
 import {
   isEvents,
   isProvider,
   isService,
   noCode,
   snakeCase,
-} from "@apexlang/codegen/utils";
+} from '@apexlang/codegen/utils';
 
 export class BusVisitor extends BaseVisitor {
   visitNamespaceBefore(context: Context): void {
-    const computeType = context.config.computeType || "rsocket";
-    if (computeType == "wapc") {
+    const computeType = context.config.computeType || 'rsocket';
+    if (computeType == 'wapc') {
       this.write(`compute:
   type: wapc
   with:
     filename: build/release.wasm
 \n`);
-    } else if (computeType != "rsocket") {
+    } else if (computeType != 'rsocket') {
       this.write(`compute:
   type: ${computeType}
 \n`);
@@ -111,7 +111,7 @@ class ServicesVisitor extends BaseVisitor {
 
     const oper = context.operation!;
     const nocode = noCode(oper);
-    const comment = nocode ? "" : "# ";
+    const comment = nocode ? '' : '# ';
     const operName = oper.name;
     this.write(`    ${comment}${operName}:\n`);
     if (oper.description) {
@@ -133,7 +133,7 @@ class EventsVisitor extends BaseVisitor {
 
     const { namespace: ns, interface: iface, operation } = context;
     var func = operation.name;
-    operation.annotation("type", (a) => {
+    operation.annotation('type', (a) => {
       const v: Value = a.convert();
       func = v.value;
     });
@@ -170,21 +170,21 @@ class ProvidersVisitor extends BaseVisitor {
     const oper = context.operation!;
     const operName = oper.name;
     const cloudEventsType = snakeCase(
-      operName.replace(/^(send|raise|notify)/, "")
-    ).replaceAll("_", ".");
+      operName.replace(/^(send|raise|notify)/, '')
+    ).replaceAll('_', '.');
     this.write(`    ${operName}:\n`);
     if (oper.description) {
       this.write(`      name: ${oper.description}\n`);
     }
     this.write(`      steps:\n`);
     if (
-      operName.startsWith("send") ||
-      operName.startsWith("raise") ||
-      operName.endsWith("Created") ||
-      operName.endsWith("Updated") ||
-      operName.endsWith("Deleted") ||
-      operName.endsWith("Moved") ||
-      operName.endsWith("Notification")
+      operName.startsWith('send') ||
+      operName.startsWith('raise') ||
+      operName.endsWith('Created') ||
+      operName.endsWith('Updated') ||
+      operName.endsWith('Deleted') ||
+      operName.endsWith('Moved') ||
+      operName.endsWith('Notification')
     ) {
       this.write(`        # - name: Publish event
         #   uses: '@dapr/publish_message'
@@ -201,9 +201,9 @@ class ProvidersVisitor extends BaseVisitor {
         #   retry: publish
         #   circuitBreaker: publish\n\n`);
     } else if (
-      operName.startsWith("get") ||
-      operName.startsWith("load") ||
-      operName.startsWith("fetch")
+      operName.startsWith('get') ||
+      operName.startsWith('load') ||
+      operName.startsWith('fetch')
     ) {
       this.write(`        # - name: Get state
         #   uses: '@dapr/get_state'

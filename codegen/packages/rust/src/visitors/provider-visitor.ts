@@ -1,11 +1,11 @@
-import { utils } from "@apexlang/codegen/rust";
+import { utils } from '@apexlang/codegen/rust';
 
-import { Context, Interface, ObjectMap, Operation } from "@apexlang/core/model";
-import { convertDescription } from "../utils/conversions.js";
-import { constantCase } from "../utils/index.js";
-import { convertType } from "../utils/types.js";
+import { Context, Interface, ObjectMap, Operation } from '@apexlang/core/model';
+import { convertDescription } from '../utils/conversions.js';
+import { constantCase } from '../utils/index.js';
+import { convertType } from '../utils/types.js';
 
-import { SourceGenerator } from "./base.js";
+import { SourceGenerator } from './base.js';
 const { rustify, rustifyCaps, trimLines } = utils;
 
 export class ProviderVisitor extends SourceGenerator<Interface> {
@@ -36,7 +36,7 @@ export class ProviderVisitor extends SourceGenerator<Interface> {
     });
 
     return `
-${indexConstants.join("\n")}
+${indexConstants.join('\n')}
 ${trimLines([comment])}
 pub mod ${module_name} {
   use super::*;
@@ -78,7 +78,7 @@ export function convertOperation(
   pub(crate) ${rustify(p.name)}: ${convertType(p.type, config, true, "'a")},
   `;
     })
-    .join("\n");
+    .join('\n');
 
   return `
 ${trimLines([comment])}
