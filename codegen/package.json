@@ -5,7 +5,7 @@
   "scripts": {},
   "private": true,
   "dependencies": {
-    "@apexlang/codegen": "file:../../apex-codegen"
+    "@apexlang/codegen": "^0.0.16"
   },
   "devDependencies": {
     "prettier": "^2.6.2"
