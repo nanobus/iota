@@ -29,11 +29,6 @@ extern "C" fn __wasmrs_init(
     host_buffer_size: u32,
     max_host_frame_len: u32,
 ) {
-    env_logger::builder()
-        .default_format()
-        .filter(None, tracing::log::LevelFilter::Trace)
-        .write_style(env_logger::WriteStyle::Always)
-        .init();
     init_exports();
     init_imports();
     wasmrs_guest::init(guest_buffer_size, host_buffer_size, max_host_frame_len);

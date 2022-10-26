@@ -1,9 +1,11 @@
 install:
   npx pnpm -r install
 
-build:
-  npx pnpm -r install
+build: install
   npx pnpm -r build
+
+watch:
+  npx pnpm -r watch
 
 test:
   npx pnpm -r test
@@ -14,3 +16,4 @@ update-deps:
 clean:
   rm -rf packages/*/node_modules
   rm -rf node_modules
+
