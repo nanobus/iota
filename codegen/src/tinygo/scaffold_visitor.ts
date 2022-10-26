@@ -137,7 +137,7 @@ class ServiceVisitor extends BaseVisitor {
     }
     this.write(`${dependencies
       .map((e) => camelCase(e) + ": " + camelCase(e) + ",")
-      .join(",\n\t\t")}
+      .join("\n\t\t")}
       }
     }\n\n`);
   }
