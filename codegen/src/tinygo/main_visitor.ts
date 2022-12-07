@@ -41,7 +41,7 @@ export class MainVisitor extends BaseVisitor {
     this.write(`package main
 
     import (
-      "github.com/nanobus/iota/go/wasmrs/guest"
+      "github.com/nanobus/iota/go/transport/wasmrs/guest"
 
       "${importPath}"
     )\n\n`);
