@@ -1,10 +1,10 @@
-import { Context } from "@apexlang/core/model";
+import { Context } from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 
-import { RustBasic } from "@apexlang/codegen/rust";
-import { ServiceVisitor } from "./visitors/service-visitor.js";
-import { ProviderVisitor } from "./visitors/provider-visitor.js";
-import { constantCase } from "./utils/index.js";
-import { utils } from "@apexlang/codegen/rust";
+import { RustBasic } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/rust/mod.ts";
+import { ServiceVisitor } from "./visitors/service-visitor.ts";
+import { ProviderVisitor } from "./visitors/provider-visitor.ts";
+import { constantCase } from "./utils/mod.ts";
+import { utils } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/rust/mod.ts";
 
 export class DefaultVisitor extends RustBasic {
   namespace = "";

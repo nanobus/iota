@@ -14,14 +14,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { Context, BaseVisitor } from "@apexlang/core/model";
+import {
+  Context,
+  BaseVisitor,
+} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 import {
   isEvents,
   isProvider,
   isService,
   noCode,
   snakeCase,
-} from "@apexlang/codegen/utils";
+} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/utils/mod.ts";
 
 export class BusVisitor extends BaseVisitor {
   visitNamespaceBefore(context: Context): void {

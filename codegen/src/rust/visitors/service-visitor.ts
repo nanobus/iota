@@ -1,9 +1,9 @@
-import { utils } from "@apexlang/codegen/rust";
-import { Context, Interface, ObjectMap, Operation } from "@apexlang/core/model";
-import { convertDescription } from "../utils/conversions.js";
-import { convertType } from "../utils/types.js";
+import { utils } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/rust/mod.ts";
+import { Context, Interface, ObjectMap, Operation } from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
+import { convertDescription } from "../utils/conversions.ts";
+import { convertType } from "../utils/types.ts";
 
-import { SourceGenerator } from "./base.js";
+import { SourceGenerator } from "./base.ts";
 
 const { rustify, rustifyCaps, trimLines } = utils;
 

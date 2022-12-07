@@ -27,17 +27,17 @@ import {
   PrimitiveName,
   Stream,
   Writer,
-} from "@apexlang/core/model";
+} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 import {
   convertOperationToType,
   convertUnionToType,
-} from "@apexlang/codegen/utils";
-import { Import, StructVisitor } from "@apexlang/codegen/go";
-import { MsgPackDecoderVisitor } from "./msgpack_decoder_visitor";
+} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/utils/mod.ts";
+import { Import, StructVisitor } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
+import { MsgPackDecoderVisitor } from "./msgpack_decoder_visitor.ts";
 import {
   MsgPackEncoderUnionVisitor,
   MsgPackEncoderVisitor,
-} from "./msgpack_encoder_visitor";
+} from "./msgpack_encoder_visitor.ts";
 
 export class MsgPackVisitor extends BaseVisitor {
   constructor(writer: Writer) {

@@ -14,9 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { Context, BaseVisitor } from "@apexlang/core/model";
-import { fieldName } from "@apexlang/codegen/go";
-import { msgpackEncode } from "./msgpack_helpers.js";
+import { Context, BaseVisitor } from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
+import { fieldName } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
+import { msgpackEncode } from "./msgpack_helpers.ts";
 
 export class MsgPackEncoderVisitor extends BaseVisitor {
   visitTypeFieldsBefore(context: Context): void {

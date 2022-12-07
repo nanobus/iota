@@ -1,5 +1,5 @@
-import { utils } from "@apexlang/codegen/rust";
-import { AnyType, ObjectMap } from "@apexlang/core/model";
+import { utils } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/rust/mod.ts";
+import { AnyType, ObjectMap } from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 
 /**
  * Convert an Apex type to a type suitable for the destination format.

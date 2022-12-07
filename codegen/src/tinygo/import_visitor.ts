@@ -27,15 +27,15 @@ import {
   PrimitiveName,
   Stream,
   Writer,
-} from "@apexlang/core/model";
+} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 import {
   Import,
   methodName,
   setExpandStreamPattern,
-} from "@apexlang/codegen/go";
-import { isHandler, isProvider, noCode } from "@apexlang/codegen/utils";
-import { InvokersVisitor } from "./invokers_visitor.js";
-import { getOperationParts } from "./utilities.js";
+} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
+import { isHandler, isProvider, noCode } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/utils/mod.ts";
+import { InvokersVisitor } from "./invokers_visitor.ts";
+import { getOperationParts } from "./utilities.ts";
 
 export class ImportBaseVisitor extends BaseVisitor {
   private hasAny: (context: Context) => boolean;
@@ -51,7 +51,7 @@ export class ImportBaseVisitor extends BaseVisitor {
     this.filter = filter;
   }
 
-  visitContextBefore(context: Context): void {
+  visitContextBefore(_context: Context): void {
     setExpandStreamPattern("flux.Flux[{{type}}]");
   }
 
@@ -149,7 +149,7 @@ export class ProviderVisitor extends ImportBaseVisitor {
       writer,
       (context: Context): boolean => {
         const { namespace: ns } = context;
-        for (let name in ns.interfaces) {
+        for (const name in ns.interfaces) {
           const iface = ns.interfaces[name];
           if (!iface.annotation("provider")) {
             continue;
@@ -162,7 +162,7 @@ export class ProviderVisitor extends ImportBaseVisitor {
             return true;
           }
         }
-        for (let name in ns.functions) {
+        for (const name in ns.functions) {
           const iface = ns.functions[name];
           if (iface.annotation("provider")) {
             return true;
@@ -183,13 +183,13 @@ export class ImportVisitor extends ImportBaseVisitor {
       writer,
       (context: Context): boolean => {
         const { namespace: ns } = context;
-        for (let name in ns.interfaces) {
+        for (const name in ns.interfaces) {
           const iface = ns.interfaces[name];
           if (iface.annotation("service")) {
             return true;
           }
         }
-        for (let name in ns.functions) {
+        for (const name in ns.functions) {
           const iface = ns.functions[name];
           if (iface.annotation("service")) {
             return true;
@@ -215,7 +215,7 @@ class ProviderStructVisitor extends BaseVisitor {
     this.write(`op${methodName(operation, operation.name)} uint32\n`);
   }
 
-  visitInterfaceAfter(context: Context): void {
+  visitInterfaceAfter(_context: Context): void {
     this.write(`}\n\n`);
   }
 }
@@ -237,7 +237,7 @@ class ProviderNewVisitor extends BaseVisitor {
     );
   }
 
-  visitInterfaceAfter(context: Context): void {
+  visitInterfaceAfter(_context: Context): void {
     this.write(`}
     }\n\n`);
   }

@@ -14,17 +14,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { Context, BaseVisitor, Kind, Stream } from "@apexlang/core/model";
-import { setExpandStreamPattern } from "@apexlang/codegen/go";
+import { Context, BaseVisitor, Kind, Stream } from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
+import { setExpandStreamPattern } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
 import {
   capitalize,
   isHandler,
   noCode,
   uncapitalize,
-} from "@apexlang/codegen/utils";
+} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/utils/mod.ts";
 
 export class RegisterVisitor extends BaseVisitor {
-  visitContextBefore(context: Context): void {
+  visitContextBefore(_context: Context): void {
     setExpandStreamPattern("flux.Flux[{{type}}]");
   }
 

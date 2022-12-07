@@ -24,7 +24,7 @@ import {
   Alias,
   Named,
   List,
-} from "@apexlang/core/model";
+} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 import {
   expandType,
   translateAlias,
@@ -32,16 +32,16 @@ import {
   methodName,
   fieldName,
   parameterName,
-} from "@apexlang/codegen/go";
+} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
 import {
   capitalize,
   isObject,
   isPrimitive,
   isVoid,
   operationArgsType,
-} from "@apexlang/codegen/utils";
-import { getOperationParts } from "./utilities";
-import { primitiveTransformers } from "./constants";
+} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/utils/mod.ts";
+import { getOperationParts } from "./utilities.ts";
+import { primitiveTransformers } from "./constants.ts";
 
 export class InvokersVisitor extends BaseVisitor {
   visitOperation(context: Context): void {
@@ -77,7 +77,7 @@ export class InvokersVisitor extends BaseVisitor {
 
   doHandler(context: Context): void {
     const tr = translateAlias(context);
-    const { namespace: ns, interface: iface, operation } = context;
+    const { interface: iface, operation } = context;
 
     let receiver = "";
     if (iface) {

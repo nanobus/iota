@@ -14,14 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { ImportsVisitor as GoImportsVisitor } from "@apexlang/codegen/go";
+import { ImportsVisitor as GoImportsVisitor } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
 import {
   AnyType,
   Context,
   Kind,
   Operation,
   Stream,
-} from "@apexlang/core/model";
+} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 
 export class ImportsVisitor extends GoImportsVisitor {
   checkType(context: Context, type: AnyType): void {

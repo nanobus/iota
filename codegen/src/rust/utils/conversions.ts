@@ -1,6 +1,9 @@
-import { utils } from "@apexlang/codegen/rust";
-import { ObjectMap, Parameter } from "@apexlang/core/model";
-import { convertType } from "./types";
+import { utils } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/rust/mod.ts";
+import {
+  ObjectMap,
+  Parameter,
+} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
+import { convertType } from "./types.ts";
 
 /**
  * Convert a description to the appropriate format for the destination.

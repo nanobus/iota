@@ -20,7 +20,7 @@ import {
   Operation,
   Parameter,
   AnyType,
-} from "@apexlang/core/model";
+} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 
 export interface OperationParts {
   type: string;
@@ -56,7 +56,7 @@ export function getOperationParts(operation: Operation): OperationParts {
       `There can only be zero or one stream parameter. Found ${streams.length}.`
     );
   }
-  var returns = operation.type;
+  let returns = operation.type;
   if (streamIn || operation.type.kind == Kind.Stream) {
     rxType = streamIn ? "RequestChannel" : "RequestStream";
     returns = (operation.type as Stream).type;

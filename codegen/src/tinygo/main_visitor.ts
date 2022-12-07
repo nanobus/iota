@@ -14,13 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { Context, BaseVisitor, Writer } from "@apexlang/core/model";
+import { Context, BaseVisitor, Writer } from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 import {
   camelCase,
   isService,
   InterfaceUsesVisitor,
   UsesVisitor,
-} from "@apexlang/codegen/utils";
+} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/utils/mod.ts";
 
 export class MainVisitor extends BaseVisitor {
   // Overridable visitor implementations

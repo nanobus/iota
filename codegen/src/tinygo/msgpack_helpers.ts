@@ -27,7 +27,7 @@ import {
   Primitive,
   PrimitiveName,
   Enum,
-} from "@apexlang/core/model";
+} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 import {
   Import,
   translateAlias,
@@ -35,7 +35,7 @@ import {
   expandType,
   fieldName,
   returnShare,
-} from "@apexlang/codegen/go";
+} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
 import {
   msgpackCastFuncs,
   msgpackCastNillableFuncs,
@@ -43,7 +43,7 @@ import {
   msgpackDecodeNillableFuncs,
   msgpackEncodeFuncs,
   msgpackEncodeNillableFuncs,
-} from "./msgpack_constants.js";
+} from "./msgpack_constants.ts";
 
 /**
  * Creates string that is an msgpack read code block
@@ -64,7 +64,7 @@ export function msgpackRead(
   const tr = translateAlias(context);
   const returnPrefix = defaultVal == "" ? "" : `${defaultVal}, `;
   let prefix = "return ";
-  let assign =
+  const assign =
     variable == "item" ||
     variable == "key" ||
     variable == "value" ||
@@ -87,7 +87,6 @@ export function msgpackRead(
       }
     } else {
       if (t.kind == Kind.Type && !prevOptional) {
-        let type = t as Named;
         if (errorHandling) {
           prefix = "err = ";
         }
@@ -132,7 +131,7 @@ export function msgpackRead(
     case Kind.Union:
     case Kind.Type:
     case Kind.Primitive: {
-      let namedNode = t as Named;
+      const namedNode = t as Named;
       const amp = typeInstRef ? "&" : "";
       let decodeFn = `msgpack.Decode[${namedNode.name}](${amp}decoder)`;
       if (prevOptional) {
@@ -148,7 +147,7 @@ export function msgpackRead(
       return `${prefix}${decodeFn}\n`;
     }
     case Kind.Enum: {
-      let e = t as Enum;
+      const e = t as Enum;
       let decodeFn = `convert.Numeric[${e.name}](decoder.ReadInt32())`;
       if (prevOptional) {
         decodeFn = `convert.NillableNumeric[${e.name}](decoder.ReadNillableInt32())`;

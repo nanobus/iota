@@ -23,7 +23,7 @@ import {
   Alias,
   Enum,
   List,
-} from "@apexlang/core/model";
+} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 import {
   expandType,
   returnShare,
@@ -32,7 +32,7 @@ import {
   msgpackVarAccessParam,
   setExpandStreamPattern,
   methodName,
-} from "@apexlang/codegen/go";
+} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
 import {
   capitalize,
   isHandler,
@@ -42,11 +42,11 @@ import {
   noCode,
   operationArgsType,
   uncapitalize,
-} from "@apexlang/codegen/utils";
-import { primitiveTransformers } from "./constants";
+} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/utils/mod.ts";
+import { primitiveTransformers } from "./constants.ts";
 
 export class WrappersVisitor extends BaseVisitor {
-  visitContextBefore(context: Context): void {
+  visitContextBefore(_context: Context): void {
     setExpandStreamPattern("flux.Flux[{{type}}]");
   }
 
@@ -66,7 +66,6 @@ export class WrappersVisitor extends BaseVisitor {
   }
 
   doRegister(context: Context): void {
-    const tr = translateAlias(context);
     const { namespace: ns, operation } = context;
     const handlerName = `${capitalize(operation.name)}Fn`;
     const wrapperName = `${uncapitalize(operation.name)}Wrapper`;
@@ -96,7 +95,7 @@ export class WrappersVisitor extends BaseVisitor {
 
   doHandler(context: Context): void {
     const tr = translateAlias(context);
-    const { namespace: ns, interface: iface, operation } = context;
+    const { interface: iface, operation } = context;
     const handlerName = `${capitalize(operation.name)}Fn`;
     const wrapperName = iface
       ? `${uncapitalize(iface.name)}${capitalize(operation.name)}Wrapper`
@@ -162,7 +161,7 @@ export class WrappersVisitor extends BaseVisitor {
       }
     }
 
-    var handlerMethodName = "handler";
+    let handlerMethodName = "handler";
     if (iface) {
       this.write(
         `func ${wrapperName}(svc ${iface.name}) invoke.${rxStyle}Handler {

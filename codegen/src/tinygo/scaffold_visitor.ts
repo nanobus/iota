@@ -28,7 +28,7 @@ import {
   Type,
   Stream,
   Operation,
-} from "@apexlang/core/model";
+} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 import {
   defaultValueForType,
   expandType,
@@ -37,14 +37,14 @@ import {
   receiver,
   Import,
   translateAlias,
-} from "@apexlang/codegen/go";
+} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
 import {
   camelCase,
   hasServiceCode,
   isOneOfType,
   isVoid,
   noCode,
-} from "@apexlang/codegen/utils";
+} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/utils/mod.ts";
 
 interface Logger {
   import: string;
@@ -202,7 +202,7 @@ class ImportsVisitor extends BaseVisitor {
   private imports: { [key: string]: Import } = {};
   private externalImports: { [key: string]: Import } = {};
 
-  visitNamespaceAfter(context: Context): void {
+  visitNamespaceAfter(_context: Context): void {
     const stdLib = [];
     for (const key in this.imports) {
       const i = this.imports[key];

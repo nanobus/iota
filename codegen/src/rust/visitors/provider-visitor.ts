@@ -1,4 +1,4 @@
-import { utils } from "@apexlang/codegen/rust";
+import { utils } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/rust/mod.ts";
 
 import {
   Context,
@@ -7,12 +7,12 @@ import {
   ObjectMap,
   Operation,
   Stream,
-} from "@apexlang/core/model";
-import { convertDescription } from "../utils/conversions.js";
-import { constantCase } from "../utils/index.js";
-import { convertType } from "../utils/types.js";
+} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
+import { convertDescription } from "../utils/conversions.ts";
+import { constantCase } from "../utils/mod.ts";
+import { convertType } from "../utils/types.ts";
 
-import { SourceGenerator } from "./base.js";
+import { SourceGenerator } from "./base.ts";
 const { rustify, rustifyCaps, trimLines } = utils;
 
 export class ProviderVisitor extends SourceGenerator<Interface> {

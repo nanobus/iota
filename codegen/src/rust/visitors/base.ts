@@ -8,7 +8,7 @@ import {
   Writer,
   Interface,
   ObjectMap,
-} from "@apexlang/core/model";
+} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 
 export type VisitorTypes = Alias | Type | Union | Enum | Interface;
 
