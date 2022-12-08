@@ -191,13 +191,14 @@ export class InvokersVisitor extends BaseVisitor {
       pl := payload.New(payloadData, metadata[:])\n`,
     );
     if (streamIn) {
-      var transformFn = "";
+      let transformFn = "";
       switch (streamIn.type.kind) {
-        case Kind.Primitive:
+        case Kind.Primitive: {
           const p = streamIn.type as Primitive;
           transformFn = `transform.${capitalize(p.name)}.Encode`;
           break;
-        case Kind.Alias:
+        }
+        case Kind.Alias: {
           const a = streamIn.type as Alias;
           if (a.type.kind == Kind.Primitive) {
             const p = a.type as Primitive;
@@ -209,17 +210,21 @@ export class InvokersVisitor extends BaseVisitor {
               }`;
           }
           break;
-        case Kind.Enum:
+        }
+        case Kind.Enum: {
           const e = streamIn.type as Enum;
           transformFn = `transform.Int32Encode[${e.name}]`;
           break;
+        }
         case Kind.Type:
-        case Kind.Union:
+        case Kind.Union: {
           const t = streamIn.type as Named;
           transformFn = `transform.MsgPackEncode[${t.name}]`;
           break;
-        default:
+        }
+        default: {
           console.log(streamIn.type.kind);
+        }
       }
       const inMap = `flux.Map(${streamIn.parameter.name}, ${transformFn})`;
       this.write(`future := gCaller.${type}(ctx, pl, ${inMap})\n`);

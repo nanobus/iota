@@ -284,13 +284,14 @@ class ImportsVisitor extends BaseVisitor {
 
   visitCheckType(context: Context, t: AnyType): void {
     switch (t.kind) {
-      case Kind.Primitive:
+      case Kind.Primitive: {
         const p = t as Primitive;
         if (p.name == PrimitiveName.DateTime) {
           this.stdLibs.add("time");
         }
         break;
-      case Kind.Alias:
+      }
+      case Kind.Alias: {
         const a = t as Alias;
         const aliases = (context.config.aliases as { [key: string]: Import }) ||
           {};
@@ -301,24 +302,29 @@ class ImportsVisitor extends BaseVisitor {
           this.visitCheckType(context, a.type);
         }
         break;
-      case Kind.Stream:
+      }
+      case Kind.Stream: {
         this.imports.add("github.com/nanobus/iota/go/rx/flux");
         const s = t as Stream;
         this.visitCheckType(context, s.type);
         break;
-      case Kind.Optional:
+      }
+      case Kind.Optional: {
         const o = t as Optional;
         this.visitCheckType(context, o.type);
         break;
-      case Kind.List:
+      }
+      case Kind.List: {
         const l = t as List;
         this.visitCheckType(context, l.type);
         break;
-      case Kind.Map:
+      }
+      case Kind.Map: {
         const m = t as Map;
         this.visitCheckType(context, m.keyType);
         this.visitCheckType(context, m.valueType);
         break;
+      }
     }
   }
 }

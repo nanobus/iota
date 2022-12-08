@@ -72,12 +72,9 @@ pub mod ${module_name} {
 export function convertOperation(
   op: Operation,
   interfaceName: string,
-  global: boolean,
+  _global: boolean,
   config: ObjectMap,
 ): string {
-  const name = rustify(op.name);
-  const indexConstant = constantCase(`${interfaceName}_${name}`);
-
   const comment = convertDescription(op.description);
 
   const impl = op.type.kind === Kind.Stream

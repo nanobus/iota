@@ -138,15 +138,16 @@ class ImportsVisitor extends BaseVisitor {
     this.checkType(context, field.type);
   }
 
-  checkType(context: Context, t: AnyType, argument: boolean = false): void {
+  checkType(context: Context, t: AnyType, argument = false): void {
     switch (t.kind) {
-      case Kind.Primitive:
+      case Kind.Primitive: {
         const p = t as Primitive;
         if (argument && p.name == PrimitiveName.DateTime) {
           this.imports.add("time");
         }
         break;
-      case Kind.Alias:
+      }
+      case Kind.Alias: {
         const a = t as Alias;
         const aliases = (context.config.aliases as { [key: string]: Import }) ||
           {};
@@ -157,23 +158,28 @@ class ImportsVisitor extends BaseVisitor {
           this.checkType(context, a.type, argument);
         }
         break;
-      case Kind.Stream:
+      }
+      case Kind.Stream: {
         const s = t as Stream;
         this.checkType(context, s.type, argument);
         break;
-      case Kind.Optional:
+      }
+      case Kind.Optional: {
         const o = t as Optional;
         this.checkType(context, o.type, argument);
         break;
-      case Kind.List:
+      }
+      case Kind.List: {
         const l = t as List;
         this.checkType(context, l.type, argument);
         break;
-      case Kind.Map:
+      }
+      case Kind.Map: {
         const m = t as Map;
         this.checkType(context, m.keyType, argument);
         this.checkType(context, m.valueType, argument);
         break;
+      }
     }
   }
 }

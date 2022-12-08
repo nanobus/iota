@@ -156,7 +156,7 @@ export function msgpackRead(
       }
       return `${prefix}${decodeFn}\n`;
     }
-    case Kind.Map:
+    case Kind.Map: {
       let mapCode = `mapSize, err := decoder.ReadMapSize()
       if err != nil {
         return ${returnPrefix}err
@@ -209,7 +209,8 @@ export function msgpackRead(
       mapCode += `${variable}[key] = value
       }\n`;
       return mapCode;
-    case Kind.List:
+    }
+    case Kind.List: {
       let listCode = `listSize, err := decoder.ReadArraySize()
       if err != nil {
         return ${returnPrefix}err
@@ -250,7 +251,8 @@ export function msgpackRead(
       listCode += `${variable} = append(${variable}, nonNilItem)
       }\n`;
       return listCode;
-    case Kind.Optional:
+    }
+    case Kind.Optional: {
       const optNode = t as Optional;
       optNode.type;
       switch (optNode.type.kind) {
@@ -267,12 +269,6 @@ export function msgpackRead(
           );
       }
       let optCode = "";
-      // optCode += "isNil, err := decoder.IsNextNil()\n";
-      // optCode += "if err == nil {\n";
-      // optCode += "if isNil {\n";
-      // optCode += prefix.replace(", err", "") + "nil;\n";
-      // optCode += "} else {\n";
-      // optCode += `var nonNil ${expandType(optNode.type, "", false, tr)}\n`;
       optCode += msgpackRead(
         context,
         typeInstRef,
@@ -282,11 +278,11 @@ export function msgpackRead(
         optNode.type,
         true,
       );
-      // optCode += "}\n";
-      // optCode += "}\n";
       return optCode;
-    default:
+    }
+    default: {
       return "unknown\n";
+    }
   }
 }
 
@@ -341,7 +337,7 @@ export function msgpackWrite(
   switch (t.kind) {
     case Kind.Union:
     case Kind.Type:
-    case Kind.Primitive:
+    case Kind.Primitive: {
       const namedNode = t as Named;
       if (prevOptional && msgpackEncodeNillableFuncs.has(namedNode.name)) {
         return `${typeInst}.${
@@ -359,13 +355,14 @@ export function msgpackWrite(
       }
       const amp = typeInstRef ? "&" : "";
       return `${variable}.${typeMeth}(${amp}${typeInst})\n`;
-    case Kind.Enum:
-      const e = t as Enum;
+    }
+    case Kind.Enum: {
       if (!prevOptional) {
         return `${typeInst}.WriteInt32(int32(${variable}))\n`;
       }
       return `${typeInst}.WriteNillableInt32((*int32)(${variable}))\n`;
-    case Kind.Map:
+    }
+    case Kind.Map: {
       const mappedNode = t as Map;
       code += typeInst +
         `.WriteMapSize(uint32(len(${variable})))
@@ -396,7 +393,8 @@ export function msgpackWrite(
         }}
       }\n`;
       return code;
-    case Kind.List:
+    }
+    case Kind.List: {
       const listNode = t as List;
       code += typeInst +
         `.WriteArraySize(uint32(len(${variable})))
@@ -414,10 +412,12 @@ export function msgpackWrite(
           )
         }}\n`;
       return code;
-    case Kind.Optional:
+    }
+    case Kind.Optional: {
       const optionalNode = t as Optional;
       switch (optionalNode.type.kind) {
-        case Kind.Alias:
+        // deno-lint-ignore no-fallthrough
+        case Kind.Alias: {
           const a = optionalNode.type as Alias;
           const aliases =
             (context.config.aliases as { [key: string]: Import }) || {};
@@ -425,6 +425,8 @@ export function msgpackWrite(
           if (imp && imp.format) {
             break;
           }
+          // falls through */
+        }
         case Kind.List:
         case Kind.Map:
         case Kind.Enum:
@@ -444,7 +446,7 @@ export function msgpackWrite(
       code += "if " + variable + " == nil {\n";
       code += typeInst + ".WriteNil()\n";
       code += "} else {\n";
-      let vprefix = msgpackReturnDeref(context, optionalNode.type);
+      const vprefix = msgpackReturnDeref(context, optionalNode.type);
       code += msgpackWrite(
         context,
         typeInst,
@@ -457,8 +459,10 @@ export function msgpackWrite(
       );
       code += "}\n";
       return code;
-    default:
+    }
+    default: {
       return "unknown\n";
+    }
   }
 }
 

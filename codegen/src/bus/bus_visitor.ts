@@ -152,7 +152,7 @@ class EventsVisitor extends BaseVisitor {
     }
 
     const { namespace: ns, interface: iface, operation } = context;
-    var func = operation.name;
+    let func = operation.name;
     operation.annotation("type", (a) => {
       const v: Value = a.convert();
       func = v.value;

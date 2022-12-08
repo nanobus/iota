@@ -123,7 +123,7 @@ export class WrappersVisitor extends BaseVisitor {
     if (streamIn) {
       rxArgs += `, in flux.Flux[payload.Payload]`;
       switch (streamIn.kind) {
-        case Kind.Primitive:
+        case Kind.Primitive: {
           const prim = streamIn as Primitive;
           rxHandlerIn = `, flux.Map(in, ${
             primitiveTransformers.get(
@@ -131,11 +131,13 @@ export class WrappersVisitor extends BaseVisitor {
             )
           }.Decode)`;
           break;
-        case Kind.Enum:
+        }
+        case Kind.Enum: {
           const e = streamIn as Enum;
           rxHandlerIn = `, flux.Map(in, transform.Int32Decode[${e.name}])`;
           break;
-        case Kind.Alias:
+        }
+        case Kind.Alias: {
           const a = streamIn as Alias;
           if (a.type.kind == Kind.Primitive) {
             const p = a.type as Primitive;
@@ -153,6 +155,7 @@ export class WrappersVisitor extends BaseVisitor {
             })`;
           }
           break;
+        }
         default:
           rxHandlerIn = `, flux.Map(in, transform.MsgPackDecode[${
             expandType(

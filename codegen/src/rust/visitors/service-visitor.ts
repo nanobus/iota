@@ -72,7 +72,7 @@ pub mod ${service_module} {
 export function convertOperation(
   op: Operation,
   iface: string,
-  global: boolean,
+  _global: boolean,
   config: ObjectMap,
 ): [string, string, string] {
   const name = rustify(op.name);

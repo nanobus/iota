@@ -24,10 +24,10 @@ export function convertDescription(description?: string): string {
  */
 export function convertParameter(param: Parameter, config: ObjectMap): string {
   // The name of the Parameter
-  const name = param.name;
+  const _name = param.name;
 
   // The type of the Parameter, converted via `convertType()`
-  const type = convertType(param.type, config);
+  const _type = convertType(param.type, config);
 
   // Combine the above to create and return new output here.
   return ``;
