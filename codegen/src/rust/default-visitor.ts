@@ -49,9 +49,11 @@ wasmrs_guest::add_import(
     const exports = this.exports.map(([iface, op]) => {
       return `
 wasmrs_guest::register_request_response(
-  "${this.namespace}.${iface}","${op}",${utils.rustifyCaps(
-        `${iface}Component`
-      )}::${utils.rustify(op)}_wrapper,
+  "${this.namespace}.${iface}","${op}",${
+        utils.rustifyCaps(
+          `${iface}Component`,
+        )
+      }::${utils.rustify(op)}_wrapper,
 );`;
     });
 

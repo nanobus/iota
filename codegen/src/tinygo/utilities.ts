@@ -15,11 +15,11 @@ limitations under the License.
 */
 
 import {
+  AnyType,
   Kind,
-  Stream,
   Operation,
   Parameter,
-  AnyType,
+  Stream,
 } from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 
 export interface OperationParts {
@@ -39,7 +39,7 @@ export interface StreamParam {
 export function getOperationParts(operation: Operation): OperationParts {
   let rxType = "RequestResponse";
   const parameters = operation.parameters.filter(
-    (p) => p.type.kind != Kind.Stream
+    (p) => p.type.kind != Kind.Stream,
   );
   const streams = operation.parameters
     .filter((p) => p.type.kind == Kind.Stream)
@@ -53,7 +53,7 @@ export function getOperationParts(operation: Operation): OperationParts {
 
   if (streams.length > 1) {
     throw new Error(
-      `There can only be zero or one stream parameter. Found ${streams.length}.`
+      `There can only be zero or one stream parameter. Found ${streams.length}.`,
     );
   }
   let returns = operation.type;
@@ -62,8 +62,9 @@ export function getOperationParts(operation: Operation): OperationParts {
     returns = (operation.type as Stream).type;
   }
 
-  const unaryIn =
-    operation.isUnary() && parameters.length > 0 ? parameters[0] : undefined;
+  const unaryIn = operation.isUnary() && parameters.length > 0
+    ? parameters[0]
+    : undefined;
 
   const returnPackage = operation.type.kind == Kind.Stream ? "flux" : "mono";
 

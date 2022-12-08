@@ -21,7 +21,12 @@ import {
   translateAlias,
 } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
 import { isVoid } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/utils/mod.ts";
-import { Context, Kind, Stream, Writer } from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
+import {
+  Context,
+  Kind,
+  Stream,
+  Writer,
+} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 
 export class InterfaceVisitor extends GoInterfaceVisitor {
   constructor(writer: Writer) {

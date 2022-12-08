@@ -32,7 +32,10 @@ import {
   convertOperationToType,
   convertUnionToType,
 } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/utils/mod.ts";
-import { Import, StructVisitor } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
+import {
+  Import,
+  StructVisitor,
+} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
 import { MsgPackDecoderVisitor } from "./msgpack_decoder_visitor.ts";
 import {
   MsgPackEncoderUnionVisitor,
@@ -45,7 +48,7 @@ export class MsgPackVisitor extends BaseVisitor {
     const operArgs = (context: Context): void => {
       const { interface: iface, operation } = context;
       const parameters = operation.parameters.filter(
-        (p) => p.type.kind != Kind.Stream
+        (p) => p.type.kind != Kind.Stream,
       );
       if (parameters.length == 0 || operation.isUnary()) {
         return;
@@ -145,8 +148,8 @@ class ImportsVisitor extends BaseVisitor {
         break;
       case Kind.Alias:
         const a = t as Alias;
-        const aliases =
-          (context.config.aliases as { [key: string]: Import }) || {};
+        const aliases = (context.config.aliases as { [key: string]: Import }) ||
+          {};
         const t2 = aliases[a.name];
         if (t2 && t2.import) {
           this.imports.add(t2.import);

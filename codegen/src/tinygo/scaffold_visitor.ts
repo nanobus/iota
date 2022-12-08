@@ -15,27 +15,27 @@ limitations under the License.
 */
 
 import {
-  Context,
-  BaseVisitor,
+  Alias,
   AnyType,
+  BaseVisitor,
+  Context,
   Kind,
   List,
   Map,
+  Operation,
   Optional,
   Primitive,
-  Alias,
   PrimitiveName,
-  Type,
   Stream,
-  Operation,
+  Type,
 } from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 import {
   defaultValueForType,
   expandType,
+  Import,
   mapParams,
   methodName,
   receiver,
-  Import,
   translateAlias,
 } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
 import {
@@ -115,9 +115,11 @@ class ServiceVisitor extends BaseVisitor {
     if (logger) {
       this.write(`log ${logger.interface}\n`);
     }
-    this.write(`${dependencies
-      .map((e) => camelCase(e) + " " + e)
-      .join("\n\t\t")}
+    this.write(`${
+      dependencies
+        .map((e) => camelCase(e) + " " + e)
+        .join("\n\t\t")
+    }
     }
 
     func New${iface.name}(`);
@@ -127,16 +129,20 @@ class ServiceVisitor extends BaseVisitor {
         this.write(`, `);
       }
     }
-    this.write(`${dependencies
-      .map((e) => camelCase(e) + " " + e)
-      .join(", ")}) *${iface.name}Impl {
+    this.write(`${
+      dependencies
+        .map((e) => camelCase(e) + " " + e)
+        .join(", ")
+    }) *${iface.name}Impl {
       return &${iface.name}Impl{\n`);
     if (logger) {
       this.write("log: log,\n");
     }
-    this.write(`${dependencies
-      .map((e) => camelCase(e) + ": " + camelCase(e) + ",")
-      .join("\n\t\t")}
+    this.write(`${
+      dependencies
+        .map((e) => camelCase(e) + ": " + camelCase(e) + ",")
+        .join("\n\t\t")
+    }
       }
     }\n\n`);
   }
@@ -152,14 +158,16 @@ class ServiceVisitor extends BaseVisitor {
     }
     this.write(`\n`);
     this.write(
-      `func (${receiver(iface)} *${iface.name}Impl) ${methodName(
-        operation,
-        operation.name
-      )}(`
+      `func (${receiver(iface)} *${iface.name}Impl) ${
+        methodName(
+          operation,
+          operation.name,
+        )
+      }(`,
     );
     const translate = translateAlias(context);
     this.write(
-      `${mapParams(context, operation.parameters, undefined, translate)})`
+      `${mapParams(context, operation.parameters, undefined, translate)})`,
     );
     if (!isVoid(operation.type)) {
       let t = operation.type;
@@ -187,11 +195,11 @@ class ServiceVisitor extends BaseVisitor {
       const expanded = expandType(operation.type, undefined, true, translate);
       const dv = defaultValueForType(context, operation.type, undefined);
       this.write(
-        `  return ${rxWrapper}.Error[${expanded}](errors.New("not_implemented"))\n`
+        `  return ${rxWrapper}.Error[${expanded}](errors.New("not_implemented"))\n`,
       );
     } else {
       this.write(
-        `  return mono.Error[struct{}](errors.New("not_implemented"))\n`
+        `  return mono.Error[struct{}](errors.New("not_implemented"))\n`,
       );
     }
     this.write(`}\n`);

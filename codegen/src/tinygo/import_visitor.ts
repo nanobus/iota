@@ -33,7 +33,11 @@ import {
   methodName,
   setExpandStreamPattern,
 } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
-import { isHandler, isProvider, noCode } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/utils/mod.ts";
+import {
+  isHandler,
+  isProvider,
+  noCode,
+} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/utils/mod.ts";
 import { InvokersVisitor } from "./invokers_visitor.ts";
 import { getOperationParts } from "./utilities.ts";
 
@@ -44,7 +48,7 @@ export class ImportBaseVisitor extends BaseVisitor {
   constructor(
     writer: Writer,
     hasAny: (context: Context) => boolean,
-    filter: (context: Context) => boolean
+    filter: (context: Context) => boolean,
   ) {
     super(writer);
     this.hasAny = hasAny;
@@ -107,9 +111,9 @@ export class ImportBaseVisitor extends BaseVisitor {
     importedFuncs.forEach((f) => {
       const parts = getOperationParts(f);
       this.write(
-        `_op${methodName(f, f.name)} = invoke.Import${parts.type}("${
-          ns.name
-        }", "${f.name}")\n`
+        `_op${
+          methodName(f, f.name)
+        } = invoke.Import${parts.type}("${ns.name}", "${f.name}")\n`,
       );
     });
 
@@ -172,7 +176,7 @@ export class ProviderVisitor extends ImportBaseVisitor {
       },
       (context: Context): boolean => {
         return !isProvider(context) || noCode(context.operation);
-      }
+      },
     );
   }
 }
@@ -199,7 +203,7 @@ export class ImportVisitor extends ImportBaseVisitor {
       },
       (context: Context): boolean => {
         return !isHandler(context);
-      }
+      },
     );
   }
 }
@@ -231,9 +235,9 @@ class ProviderNewVisitor extends BaseVisitor {
     const { namespace: ns, interface: iface, operation } = context;
     const parts = getOperationParts(operation);
     this.write(
-      `op${methodName(operation, operation.name)}: invoke.Import${
-        parts.type
-      }("${ns.name}.${iface.name}", "${operation.name}"),\n`
+      `op${
+        methodName(operation, operation.name)
+      }: invoke.Import${parts.type}("${ns.name}.${iface.name}", "${operation.name}"),\n`,
     );
   }
 
@@ -288,8 +292,8 @@ class ImportsVisitor extends BaseVisitor {
         break;
       case Kind.Alias:
         const a = t as Alias;
-        const aliases =
-          (context.config.aliases as { [key: string]: Import }) || {};
+        const aliases = (context.config.aliases as { [key: string]: Import }) ||
+          {};
         const t2 = aliases[a.name];
         if (t2 && t2.import) {
           this.imports.add(t2.import);

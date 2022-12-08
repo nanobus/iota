@@ -14,7 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { Context, BaseVisitor } from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
+import {
+  BaseVisitor,
+  Context,
+} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 import { fieldName } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
 import { msgpackEncode } from "./msgpack_helpers.ts";
 
@@ -27,7 +30,7 @@ export class MsgPackEncoderVisitor extends BaseVisitor {
       encoder.WriteNil()
       return nil
     }
-    encoder.WriteMapSize(${context.fields!.length})\n`
+    encoder.WriteMapSize(${context.fields!.length})\n`,
     );
   }
 
@@ -39,8 +42,8 @@ export class MsgPackEncoderVisitor extends BaseVisitor {
         context,
         false,
         "o." + fieldName(field, field.name),
-        field.type
-      )
+        field.type,
+      ),
     );
     super.triggerTypeField(context);
   }
@@ -61,7 +64,7 @@ export class MsgPackEncoderUnionVisitor extends BaseVisitor {
     if o == nil {
       encoder.WriteNil()
       return nil
-    }\n`
+    }\n`,
     );
   }
 
@@ -75,8 +78,8 @@ export class MsgPackEncoderUnionVisitor extends BaseVisitor {
         context,
         false,
         "o." + fieldName(field, field.name),
-        field.type
-      )
+        field.type,
+      ),
     );
     this.write(`return nil\n`);
     this.write(`}\n`);

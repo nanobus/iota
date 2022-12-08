@@ -94,8 +94,8 @@ class ImportsVisitor extends BaseVisitor {
     switch (t.kind) {
       case Kind.Alias:
         const a = t as Alias;
-        const aliases =
-          (context.config.aliases as { [key: string]: Import }) || {};
+        const aliases = (context.config.aliases as { [key: string]: Import }) ||
+          {};
         const t2 = aliases[a.name];
         if (t2 && t2.import) {
           this.imports.add(t2.import);

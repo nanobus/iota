@@ -1,5 +1,10 @@
 import { utils } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/rust/mod.ts";
-import { Context, Interface, ObjectMap, Operation } from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
+import {
+  Context,
+  Interface,
+  ObjectMap,
+  Operation,
+} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 import { convertDescription } from "../utils/conversions.ts";
 import { convertType } from "../utils/types.ts";
 
@@ -54,7 +59,7 @@ pub mod ${service_module} {
       operation,
       this.node.name,
       false,
-      this.config
+      this.config,
     );
     this.wrappers.push(wrapper);
     this.types.push(types);
@@ -68,7 +73,7 @@ export function convertOperation(
   op: Operation,
   iface: string,
   global: boolean,
-  config: ObjectMap
+  config: ObjectMap,
 ): [string, string, string] {
   const name = rustify(op.name);
   const service_module = `${rustify(iface)}_service`;

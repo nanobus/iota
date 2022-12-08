@@ -1,5 +1,8 @@
 import { utils } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/rust/mod.ts";
-import { AnyType, ObjectMap } from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
+import {
+  AnyType,
+  ObjectMap,
+} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 
 /**
  * Convert an Apex type to a type suitable for the destination format.
@@ -14,7 +17,7 @@ export function convertType(
   typ: AnyType,
   config: ObjectMap,
   asRef = false,
-  lifetime = ""
+  lifetime = "",
 ): string {
   return utils.types.apexToRustType(typ, config, asRef, lifetime);
 }

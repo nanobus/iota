@@ -15,8 +15,8 @@ limitations under the License.
 */
 
 import {
-  Context,
   BaseVisitor,
+  Context,
 } from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 import {
   isEvents,
@@ -190,7 +190,7 @@ class ProvidersVisitor extends BaseVisitor {
     const oper = context.operation!;
     const operName = oper.name;
     const cloudEventsType = snakeCase(
-      operName.replace(/^(send|raise|notify)/, "")
+      operName.replace(/^(send|raise|notify)/, ""),
     ).replaceAll("_", ".");
     this.write(`    ${operName}:\n`);
     if (oper.description) {

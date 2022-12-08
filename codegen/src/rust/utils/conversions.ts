@@ -21,7 +21,6 @@ export function convertDescription(description?: string): string {
  * @param param - A Parameter node to convert
  * @param config - The context's configuration.
  * @returns The new generated output for the Parameter
- *
  */
 export function convertParameter(param: Parameter, config: ObjectMap): string {
   // The name of the Parameter

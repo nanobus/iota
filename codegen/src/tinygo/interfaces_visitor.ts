@@ -15,7 +15,11 @@ limitations under the License.
 */
 
 import { InterfacesVisitor as GoInterfacesVisitor } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
-import { Context, Visitor, Writer } from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
+import {
+  Context,
+  Visitor,
+  Writer,
+} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 import { ImportsVisitor } from "./imports_visitor.ts";
 import { InterfaceVisitor } from "./interface_visitor.ts";
 

@@ -15,23 +15,23 @@ limitations under the License.
 */
 
 import {
-  Context,
-  BaseVisitor,
-  Kind,
-  Stream,
-  Primitive,
-  Enum,
   Alias,
-  Named,
+  BaseVisitor,
+  Context,
+  Enum,
+  Kind,
   List,
+  Named,
+  Primitive,
+  Stream,
 } from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 import {
   expandType,
-  translateAlias,
+  fieldName,
   mapParam,
   methodName,
-  fieldName,
   parameterName,
+  translateAlias,
 } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
 import {
   capitalize,
@@ -84,14 +84,16 @@ export class InvokersVisitor extends BaseVisitor {
       const structName = iface.name + "Impl";
       receiver = structName.substring(0, 1).toLowerCase();
       this.write(
-        `func (${receiver} *${structName}) ${methodName(
-          operation,
-          operation.name
-        )}(ctx context.Context`
+        `func (${receiver} *${structName}) ${
+          methodName(
+            operation,
+            operation.name,
+          )
+        }(ctx context.Context`,
       );
     } else {
       this.write(
-        `func ${methodName(operation, operation.name)}(ctx context.Context`
+        `func ${methodName(operation, operation.name)}(ctx context.Context`,
       );
     }
 
@@ -105,18 +107,19 @@ export class InvokersVisitor extends BaseVisitor {
     const { type, unaryIn, parameters, streamIn, returns, returnPackage } =
       getOperationParts(operation);
 
-    const returnType =
-      !returns || isVoid(returns)
-        ? "struct{}"
-        : expandType(returns, undefined, false, tr);
+    const returnType = !returns || isVoid(returns)
+      ? "struct{}"
+      : expandType(returns, undefined, false, tr);
 
     if (unaryIn) {
       if (unaryIn.type.kind == Kind.Enum) {
         this
-          .write(`payloadData, err := msgpack.I32ToBytes(int32(${parameterName(
-          unaryIn,
-          unaryIn.name
-        )}))
+          .write(`payloadData, err := msgpack.I32ToBytes(int32(${
+            parameterName(
+              unaryIn,
+              unaryIn.name,
+            )
+          }))
         if err != nil {
           return ${returnPackage}.Error[${returnType}](err)
         }\n`);
@@ -137,18 +140,22 @@ export class InvokersVisitor extends BaseVisitor {
         //   }
         //   request := ${unaryParamExpanded}(aliasVal)\n`);
       } else if (isObject(unaryIn.type)) {
-        this.write(`payloadData, err := msgpack.ToBytes(${parameterName(
-          unaryIn,
-          unaryIn.name
-        )})
+        this.write(`payloadData, err := msgpack.ToBytes(${
+          parameterName(
+            unaryIn,
+            unaryIn.name,
+          )
+        })
         if err != nil {
           return ${returnPackage}.Error[${returnType}](err)
         }\n`);
       } else if (isPrimitive(unaryIn.type)) {
         const p = unaryIn.type as Primitive;
-        this.write(`payloadData, err := msgpack.${capitalize(
-          p.name
-        )}ToBytes(${parameterName(unaryIn, unaryIn.name)})
+        this.write(`payloadData, err := msgpack.${
+          capitalize(
+            p.name,
+          )
+        }ToBytes(${parameterName(unaryIn, unaryIn.name)})
         if err != nil {
           return ${returnPackage}.Error[${returnType}](err)
         }\n`);
@@ -159,7 +166,7 @@ export class InvokersVisitor extends BaseVisitor {
         this.write(`request := ${argsName} {\n`);
         parameters.forEach((p) => {
           this.write(
-            `\t${fieldName(p, p.name)}: ${parameterName(p, p.name)},\n`
+            `\t${fieldName(p, p.name)}: ${parameterName(p, p.name)},\n`,
           );
         });
         this.write(`}
@@ -181,7 +188,7 @@ export class InvokersVisitor extends BaseVisitor {
       if ok {
         binary.BigEndian.PutUint32(metadata[4:8], stream.StreamID())
       }
-      pl := payload.New(payloadData, metadata[:])\n`
+      pl := payload.New(payloadData, metadata[:])\n`,
     );
     if (streamIn) {
       var transformFn = "";
@@ -226,9 +233,11 @@ export class InvokersVisitor extends BaseVisitor {
       if (a.type.kind == Kind.Primitive) {
         const p = a.type as Primitive;
         this.write(
-          `return ${returnPackage}.Map(future, transform.${capitalize(
-            p.name
-          )}Decode[${a.name}])\n`
+          `return ${returnPackage}.Map(future, transform.${
+            capitalize(
+              p.name,
+            )
+          }Decode[${a.name}])\n`,
         );
       } else {
         const expanded = expandType(a.type, undefined, undefined, tr);
@@ -236,13 +245,13 @@ export class InvokersVisitor extends BaseVisitor {
           `return ${returnPackage}.Map(future, func(raw payload.Payload) (val ${a.name}, err error) {
             err = transform.CodecDecode(raw, (*${expanded})(&val))
             return val, err
-          })\n`
+          })\n`,
         );
       }
     } else if (returns.kind == Kind.Enum) {
       const e = returns as Enum;
       this.write(
-        `return ${returnPackage}.Map(future, transform.Int32Decode[${e.name}])\n`
+        `return ${returnPackage}.Map(future, transform.Int32Decode[${e.name}])\n`,
       );
     } else if (isPrimitive(returns)) {
       const p = returns as Primitive;
@@ -252,11 +261,11 @@ export class InvokersVisitor extends BaseVisitor {
       const l = returns as List;
       const expanded = expandType(l.type, undefined, undefined, tr);
       this.write(
-        `return ${returnPackage}.Map(future, transform.SliceDecode[${expanded}])\n`
+        `return ${returnPackage}.Map(future, transform.SliceDecode[${expanded}])\n`,
       );
     } else {
       this.write(
-        `return ${returnPackage}.Map(future, transform.MsgPackDecode[${returnType}])\n`
+        `return ${returnPackage}.Map(future, transform.MsgPackDecode[${returnType}])\n`,
       );
     }
     this.write(`}\n\n`);

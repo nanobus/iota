@@ -37,9 +37,11 @@ export class ProviderVisitor extends SourceGenerator<Interface> {
     const comment = convertDescription(this.node.description);
 
     const indexConstants = this.node.operations.map((op, i) => {
-      return `static ${constantCase(
-        `${rootName}_${op.name}`
-      )}_INDEX_BYTES: [u8; 4] = ${this.index + i}u32.to_be_bytes();`;
+      return `static ${
+        constantCase(
+          `${rootName}_${op.name}`,
+        )
+      }_INDEX_BYTES: [u8; 4] = ${this.index + i}u32.to_be_bytes();`;
     });
 
     return `
@@ -59,7 +61,7 @@ pub mod ${module_name} {
       operation,
       this.node.name,
       false,
-      this.config
+      this.config,
     );
     this.imports.push([this.node.name, operation.name]);
 
@@ -71,17 +73,16 @@ export function convertOperation(
   op: Operation,
   interfaceName: string,
   global: boolean,
-  config: ObjectMap
+  config: ObjectMap,
 ): string {
   const name = rustify(op.name);
   const indexConstant = constantCase(`${interfaceName}_${name}`);
 
   const comment = convertDescription(op.description);
 
-  const impl =
-    op.type.kind === Kind.Stream
-      ? gen_request_stream(op, interfaceName, config)
-      : gen_request_response(op, interfaceName, config);
+  const impl = op.type.kind === Kind.Stream
+    ? gen_request_stream(op, interfaceName, config)
+    : gen_request_response(op, interfaceName, config);
 
   return `
 ${trimLines([comment])}
@@ -92,7 +93,7 @@ ${impl}
 function gen_request_response(
   op: Operation,
   interfaceName: string,
-  config: ObjectMap
+  config: ObjectMap,
 ): string {
   const name = rustify(op.name);
   const indexConstant = constantCase(`${interfaceName}_${name}`);
@@ -141,7 +142,7 @@ pub(crate) mod ${name} {
 function gen_request_stream(
   op: Operation,
   interfaceName: string,
-  config: ObjectMap
+  config: ObjectMap,
 ): string {
   const name = rustify(op.name);
   const indexConstant = constantCase(`${interfaceName}_${name}`);

@@ -14,7 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { Context, BaseVisitor, Kind, Stream } from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
+import {
+  BaseVisitor,
+  Context,
+  Kind,
+  Stream,
+} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
 import { setExpandStreamPattern } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
 import {
   capitalize,
@@ -44,9 +49,11 @@ export class RegisterVisitor extends BaseVisitor {
     }
 
     const { namespace: ns, interface: iface, operation } = context;
-    const wrapperName = `${uncapitalize(iface.name)}${capitalize(
-      operation.name
-    )}Wrapper`;
+    const wrapperName = `${uncapitalize(iface.name)}${
+      capitalize(
+        operation.name,
+      )
+    }Wrapper`;
     let rxStyle = "RequestResponse";
     const streams = operation.parameters
       .filter((p) => p.type.kind == Kind.Stream)
@@ -57,7 +64,7 @@ export class RegisterVisitor extends BaseVisitor {
     }
 
     this.write(
-      `invoke.Export${rxStyle}("${ns.name}.${iface.name}", "${operation.name}", ${wrapperName}(svc))\n`
+      `invoke.Export${rxStyle}("${ns.name}.${iface.name}", "${operation.name}", ${wrapperName}(svc))\n`,
     );
   }
 
