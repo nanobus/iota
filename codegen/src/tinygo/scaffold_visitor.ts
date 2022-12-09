@@ -28,7 +28,7 @@ import {
   PrimitiveName,
   Stream,
   Type,
-} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
+} from "https://deno.land/x/apex_core@v0.1.0/model/mod.ts";
 import {
   expandType,
   Import,
@@ -36,14 +36,14 @@ import {
   methodName,
   receiver,
   translateAlias,
-} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
+} from "https://deno.land/x/apex_codegen@v0.1.0/go/mod.ts";
 import {
   camelCase,
   hasServiceCode,
   isOneOfType,
   isVoid,
   noCode,
-} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/utils/mod.ts";
+} from "https://deno.land/x/apex_codegen@v0.1.0/utils/mod.ts";
 
 interface Logger {
   import: string;

@@ -27,15 +27,15 @@ import {
   PrimitiveName,
   Stream,
   Writer,
-} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
+} from "https://deno.land/x/apex_core@v0.1.0/model/mod.ts";
 import {
   convertOperationToType,
   convertUnionToType,
-} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/utils/mod.ts";
+} from "https://deno.land/x/apex_codegen@v0.1.0/utils/mod.ts";
 import {
   Import,
   StructVisitor,
-} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
+} from "https://deno.land/x/apex_codegen@v0.1.0/go/mod.ts";
 import { MsgPackDecoderVisitor } from "./msgpack_decoder_visitor.ts";
 import {
   MsgPackEncoderUnionVisitor,

@@ -15,18 +15,18 @@ limitations under the License.
 */
 
 import {
-  expandType,
-  InterfaceVisitor as GoInterfaceVisitor,
-  setExpandStreamPattern,
-  translateAlias,
-} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
-import { isVoid } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/utils/mod.ts";
-import {
   Context,
   Kind,
   Stream,
   Writer,
-} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
+} from "https://deno.land/x/apex_core@v0.1.0/model/mod.ts";
+import {
+  expandType,
+  InterfaceVisitor as GoInterfaceVisitor,
+  setExpandStreamPattern,
+  translateAlias,
+} from "https://deno.land/x/apex_codegen@v0.1.0/go/mod.ts";
+import { isVoid } from "https://deno.land/x/apex_codegen@v0.1.0/utils/mod.ts";
 
 export class InterfaceVisitor extends GoInterfaceVisitor {
   constructor(writer: Writer) {

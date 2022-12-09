@@ -14,12 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { InterfacesVisitor as GoInterfacesVisitor } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
 import {
   Context,
   Visitor,
   Writer,
-} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
+} from "https://deno.land/x/apex_core@v0.1.0/model/mod.ts";
+import { InterfacesVisitor as GoInterfacesVisitor } from "https://deno.land/x/apex_codegen@v0.1.0/go/mod.ts";
 import { ImportsVisitor } from "./imports_visitor.ts";
 import { InterfaceVisitor } from "./interface_visitor.ts";
 

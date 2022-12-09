@@ -27,7 +27,7 @@ import {
   Parameter,
   Primitive,
   PrimitiveName,
-} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
+} from "https://deno.land/x/apex_core@v0.1.0/model/mod.ts";
 import {
   expandType,
   fieldName,
@@ -35,7 +35,7 @@ import {
   returnShare,
   translateAlias,
   translations,
-} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
+} from "https://deno.land/x/apex_codegen@v0.1.0/go/mod.ts";
 import {
   msgpackCastFuncs,
   msgpackCastNillableFuncs,

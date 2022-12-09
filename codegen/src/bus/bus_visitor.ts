@@ -17,14 +17,14 @@ limitations under the License.
 import {
   BaseVisitor,
   Context,
-} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
+} from "https://deno.land/x/apex_core@v0.1.0/model/mod.ts";
 import {
   isEvents,
   isProvider,
   isService,
   noCode,
   snakeCase,
-} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/utils/mod.ts";
+} from "https://deno.land/x/apex_codegen@v0.1.0/utils/mod.ts";
 
 export class BusVisitor extends BaseVisitor {
   visitNamespaceBefore(context: Context): void {

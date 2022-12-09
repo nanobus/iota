@@ -27,17 +27,17 @@ import {
   PrimitiveName,
   Stream,
   Writer,
-} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
+} from "https://deno.land/x/apex_core@v0.1.0/model/mod.ts";
 import {
   Import,
   methodName,
   setExpandStreamPattern,
-} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
+} from "https://deno.land/x/apex_codegen@v0.1.0/go/mod.ts";
 import {
   isHandler,
   isProvider,
   noCode,
-} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/utils/mod.ts";
+} from "https://deno.land/x/apex_codegen@v0.1.0/utils/mod.ts";
 import { InvokersVisitor } from "./invokers_visitor.ts";
 import { getOperationParts } from "./utilities.ts";
 

@@ -24,7 +24,7 @@ import {
   Named,
   Primitive,
   Stream,
-} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
+} from "https://deno.land/x/apex_core@v0.1.0/model/mod.ts";
 import {
   expandType,
   fieldName,
@@ -32,14 +32,14 @@ import {
   methodName,
   parameterName,
   translateAlias,
-} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
+} from "https://deno.land/x/apex_codegen@v0.1.0/go/mod.ts";
 import {
   capitalize,
   isObject,
   isPrimitive,
   isVoid,
   operationArgsType,
-} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/utils/mod.ts";
+} from "https://deno.land/x/apex_codegen@v0.1.0/utils/mod.ts";
 import { getOperationParts } from "./utilities.ts";
 import { primitiveTransformers } from "./constants.ts";
 

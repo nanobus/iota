@@ -17,8 +17,8 @@ limitations under the License.
 import {
   BaseVisitor,
   Context,
-} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
-import { fieldName } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/go/mod.ts";
+} from "https://deno.land/x/apex_core@v0.1.0/model/mod.ts";
+import { fieldName } from "https://deno.land/x/apex_codegen@v0.1.0/go/mod.ts";
 import { msgpackRead } from "./msgpack_helpers.ts";
 
 export class MsgPackDecoderVisitor extends BaseVisitor {

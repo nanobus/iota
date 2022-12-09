@@ -18,13 +18,13 @@ import {
   BaseVisitor,
   Context,
   Writer,
-} from "https://raw.githubusercontent.com/apexlang/apex-js/deno-wip/src/model/mod.ts";
+} from "https://deno.land/x/apex_core@v0.1.0/model/mod.ts";
 import {
   camelCase,
   InterfaceUsesVisitor,
   isService,
   UsesVisitor,
-} from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/utils/mod.ts";
+} from "https://deno.land/x/apex_codegen@v0.1.0/utils/mod.ts";
 
 export class MainVisitor extends BaseVisitor {
   // Overridable visitor implementations
