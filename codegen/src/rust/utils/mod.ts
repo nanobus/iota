@@ -1,6 +1,6 @@
+import { noCase } from "https://deno.land/x/apex_codegen@v0.1.0/utils/mod.ts";
 export * as types from "./types.ts";
 export * as convert from "./conversions.ts";
-import { noCase } from "https://raw.githubusercontent.com/apexlang/codegen/deno-wip/src/utils/mod.ts";
 
 /**
  * A utility function to checks if a name is a reserved word.
