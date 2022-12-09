@@ -4,7 +4,7 @@ config:
   package: urlshortener
 generates:
   cmd/main.go:
-    ifNotExists: false
+    # ifNotExists: false
     module: '../../../src/tinygo/mod.ts'
     visitorClass: MainVisitor
     config:
@@ -22,13 +22,13 @@ generates:
     module: '../../../src/tinygo/mod.ts'
     visitorClass: ProviderVisitor
   pkg/urlshortener/services.go:
-    ifNotExists: true
+    # ifNotExists: true
     module: 'https://deno.land/x/apex_codegen@v0.1.0/go/mod.ts'
     visitorClass: ScaffoldVisitor
     config:
       types:
         - service
   bus.yaml:
-    ifNotExists: true
+    # ifNotExists: true
     module: '../../../src/bus/mod.ts'
     visitorClass: BusVisitor
