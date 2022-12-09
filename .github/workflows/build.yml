@@ -1,0 +1,67 @@
+name: Build codegen
+
+on:
+  push:
+    branches:
+      - main
+      - release-*
+    tags:
+      - v*
+  pull_request:
+    branches:
+      - main
+      - release-*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '1.19'
+
+      - name: Install Apex CLI
+        run: deno install -A --unstable -f -n apex https://deno.land/x/apex_cli/apex.ts
+
+      # - run: npm install
+      #   working-directory: ./codegen
+
+      # - run: npm run test
+      #   working-directory: ./codegen
+
+      # #- run: npm run lint
+      # - run: npm run build
+      #   working-directory: ./codegen
+
+      # - name: Install codegen module
+      #   run: apex install file:.
+      #   working-directory: ./codegen
+
+      - name: Bundle module and dependencies
+        run: deno bundle src/mod.ts bundle.js
+        working-directory: ./codegen
+
+      - name: Generator diff test
+        run: ./diffcheck.sh
+        working-directory: ./codegen/testdata
+
+      # - name: Is Release?
+      #   if: startswith(github.ref, 'refs/tags/v')
+      #   run: echo "DEPLOY_PACKAGE=true" >> $GITHUB_ENV
+
+      # - name: Publish to npm
+      #   if: env.DEPLOY_PACKAGE == 'true'
+      #   run: npm pack && npm publish --access public
+      #   working-directory: ./codegen
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
