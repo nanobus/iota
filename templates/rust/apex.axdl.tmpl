@@ -1,7 +1,7 @@
 
 namespace "{{ .name }}"
 
-interface MyModule {
+interface MyModule @service {
   action1(first:string, last:string): string
 }
 
