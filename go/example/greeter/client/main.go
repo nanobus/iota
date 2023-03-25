@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/nanobus/iota/go/handler"
 	"github.com/nanobus/iota/go/rx/mono"
 	"github.com/nanobus/iota/go/transport/rsocket"
 
@@ -11,10 +12,12 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
 	svc := greeterService{}
 	greeter.RegisterGreeter(&svc)
+	h := handler.New(ctx, handler.ClientMode)
 
-	if err := rsocket.Connect(); err != nil {
+	if err := rsocket.Connect(h); err != nil {
 		panic(err)
 	}
 }
